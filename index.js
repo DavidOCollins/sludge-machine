@@ -4,15 +4,11 @@ const port = process.env.PORT || 3000;
 
 let visitorCount = 0; // A simple in-memory counter
 
-// API to fetch visitor count
-app.get('/api/users', (req, res) => {
-  res.json({ users: visitorCount });
-});
-
-// Increment counter on page load
+// Serve the main page with styled content and a button
 app.get('/', (req, res) => {
-  visitorCount++;
-  res.send('<html>
+  visitorCount++; // Increment counter when page loads
+  res.send(`
+    <html>
       <head>
         <title>Sludge Machine</title>
         <style>
@@ -50,7 +46,13 @@ app.get('/', (req, res) => {
         <p>Visitor count: ${visitorCount}</p>
         <button onclick="window.location.href='/'">Exit Session</button>
       </body>
-    </html>');
+    </html>
+  `);
+});
+
+// API to fetch visitor count
+app.get('/api/users', (req, res) => {
+  res.json({ users: visitorCount });
 });
 
 // Start the server
